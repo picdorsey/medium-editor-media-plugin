@@ -27,7 +27,7 @@
         padding: 1em 0;
     }
 
-    .medium-insert-buttons {
+    .medium-media-buttons {
         position: absolute;
         color: #ddd;
         font-size: 0.9em;
@@ -36,7 +36,7 @@
             cursor: pointer;
         }
 
-        .medium-insert-buttons-show {
+        .medium-media-buttons-show {
             box-sizing: border-box;
             display: block;
             width: 32px;
@@ -52,13 +52,13 @@
             transform: rotate(0);
             transition: transform 100ms;
 
-            &.medium-insert-buttons-rotate {
+            &.medium-media-buttons-rotate {
                 transition: transform 250ms;
                 transform: rotate(45deg);
             }
         }
 
-        .medium-insert-buttons-addons {
+        .medium-media-buttons-addons {
             margin: 0;
             padding: 0;
             list-style: none;
@@ -90,7 +90,7 @@
     }
 }
 
-.medium-insert-caption-placeholder {
+.medium-media-caption-placeholder {
     position: relative;
     &:after {
         position: absolute;

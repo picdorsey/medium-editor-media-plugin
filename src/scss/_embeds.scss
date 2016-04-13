@@ -1,11 +1,11 @@
-.medium-insert-embeds-input {
+.medium-media-embeds-input {
     position: relative;
     color: #ccc;
     z-index: 1;
     text-align: left;
 }
 
-.medium-insert-embeds-placeholder {
+.medium-media-embeds-placeholder {
     position: relative;
     &:after {
         position: absolute;
@@ -16,18 +16,18 @@
     }
 }
 
-.medium-insert-embeds-selected {
-    .medium-insert-embed {
+.medium-media-embeds-selected {
+    .medium-media-embed {
         outline: 2px solid #000;
     }
 }
 
-.medium-insert-embeds-toolbar {
+.medium-media-embeds-toolbar {
     display: none;
 }
 
-.medium-insert-embeds {
-    .medium-insert-embeds-overlay {
+.medium-media-embeds {
+    .medium-media-embeds-overlay {
         position: absolute;
         width: 100%;
         height: 100%;

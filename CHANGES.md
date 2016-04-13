@@ -1,4 +1,12 @@
 
+2.3.1 / 2016-04-13
+==================
+
+  * Switched preprocessing from grunt to gulp (flixir)
+  * Removed test suite
+  * Housekeeping (cleaning files up, renaming assets)
+  * Upgraded normalize
+  
 2.3.0 / 2016-04-12
 ==================
 

@@ -1,4 +1,4 @@
-.medium-insert-images {
+.medium-media-images {
     text-align: center;
     figure {
          margin: 0;
@@ -14,17 +14,17 @@
              }
          }
     }
-    &.medium-insert-images-left {
+    &.medium-media-images-left {
         max-width: 33.33%;
         float: left;
         margin: 0 30px 20px 0;
     }
-    &.medium-insert-images-right {
+    &.medium-media-images-right {
         max-width: 33.33%;
         float: right;
         margin: 0 0 20px 30px;
     }
-    &.medium-insert-images-grid {
+    &.medium-media-images-grid {
         display: flex;
         flex-wrap: wrap;
         align-items: flex-start;
@@ -41,7 +41,7 @@
     }
 }
 
-.medium-insert-embeds {
+.medium-media-embeds {
     text-align: center;
     margin: 1em 0;
     position: relative;
@@ -51,19 +51,19 @@
     div {
         margin: 0 auto !important;
     }
-    &.medium-insert-embeds-left {
+    &.medium-media-embeds-left {
         width: 33.33%;
         float: left;
         margin: 0 30px 20px 0;
     }
-    &.medium-insert-embeds-right {
+    &.medium-media-embeds-right {
         width: 33.33%;
         float: right;
         margin: 0 0 20px 30px;
     }
 }
 
-.medium-insert-images, .medium-insert-embeds {
+.medium-media-images, .medium-media-embeds {
     figure {
         position: relative;
         figcaption {
@@ -87,13 +87,13 @@
 // Backwards copatibility with v0.*
 
 .mediumInsert {
-    @extend .medium-insert-images;
+    @extend .medium-media-images;
 }
 
 .mediumInsert.small {
-    @extend .medium-insert-images.medium-insert-images-left;
+    @extend .medium-media-images.medium-media-images-left;
 }
 
 .mediumInsert-embeds {
-    @extend .medium-insert-embeds;
+    @extend .medium-media-embeds;
 }

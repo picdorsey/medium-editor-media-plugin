@@ -42,7 +42,7 @@ Finally, you can initialize the insert plugin:
 
 ```javascript
 $(function () {
-    $('.editable').mediumInsert({
+    $('.editable').mediumMedia({
         editor: editor
     });
 });

@@ -3,7 +3,7 @@
     'use strict';
 
     /** Default values */
-    var pluginName = 'mediumInsert',
+    var pluginName = 'mediumMedia',
         defaults = {
             editor: null,
             enabled: true,
@@ -104,10 +104,10 @@
                 e.preventDefault();
             })
             .on('keyup click', $.proxy(this, 'toggleButtons'))
-            .on('selectstart mousedown', '.medium-insert, .medium-insert-buttons', $.proxy(this, 'disableSelection'))
-            .on('click', '.medium-insert-buttons-show', $.proxy(this, 'toggleAddons'))
-            .on('click', '.medium-insert-action', $.proxy(this, 'addonAction'))
-            .on('paste', '.medium-insert-caption-placeholder', function (e) {
+            .on('selectstart mousedown', '.medium-media, .medium-media-buttons', $.proxy(this, 'disableSelection'))
+            .on('click', '.medium-media-buttons-show', $.proxy(this, 'toggleAddons'))
+            .on('click', '.medium-media-action', $.proxy(this, 'addonAction'))
+            .on('paste', '.medium-media-caption-placeholder', function (e) {
                 $.proxy(that, 'removeCaptionPlaceholder')($(e.target));
             });
 
@@ -136,7 +136,7 @@
         $.each(data, function (key) {
             var $data = $('<div />').html(data[key].value);
 
-            $data.find('.medium-insert-buttons').remove();
+            $data.find('.medium-media-buttons').remove();
 
             // Restore original embed code from embed wrapper attribute value.
             $data.find('[data-embed-code]').each(function () {
@@ -190,7 +190,7 @@
 
     Core.prototype.editorUpdatePlaceholder = function (el, dontShow) {
         var contents = $(el).children()
-            .not('.medium-insert-buttons').contents();
+            .not('.medium-media-buttons').contents();
 
         if (!dontShow && contents.length === 1 && contents[0].nodeName.toLowerCase() === 'br') {
             this.showPlaceholder(el);
@@ -231,7 +231,7 @@
     Core.prototype.disable = function () {
         this.options.enabled = false;
 
-        this.$el.find('.medium-insert-buttons').addClass('hide');
+        this.$el.find('.medium-media-buttons').addClass('hide');
     };
 
     /**
@@ -243,7 +243,7 @@
     Core.prototype.enable = function () {
         this.options.enabled = true;
 
-        this.$el.find('.medium-insert-buttons').removeClass('hide');
+        this.$el.find('.medium-media-buttons').removeClass('hide');
     };
 
     /**
@@ -322,7 +322,7 @@
 
         this.addButtons();
 
-        $buttons = this.$el.find('.medium-insert-buttons');
+        $buttons = this.$el.find('.medium-media-buttons');
         $lastEl = $buttons.prev();
         if ($lastEl.attr('class') && $lastEl.attr('class').match(/medium\-insert(?!\-active)/)) {
             $buttons.before(this.templates['src/js/templates/core-empty-line.hbs']().trim());
@@ -352,7 +352,7 @@
      */
 
     Core.prototype.addButtons = function () {
-        if (this.$el.find('.medium-insert-buttons').length === 0) {
+        if (this.$el.find('.medium-media-buttons').length === 0) {
             this.$el.append(this.getButtons());
         }
     };
@@ -389,17 +389,17 @@
 
         this.clean();
 
-        if ($el.hasClass('medium-editor-placeholder') === false && $el.closest('.medium-insert-buttons').length === 0 && $current.closest('.medium-insert-buttons').length === 0) {
+        if ($el.hasClass('medium-editor-placeholder') === false && $el.closest('.medium-media-buttons').length === 0 && $current.closest('.medium-media-buttons').length === 0) {
 
-            this.$el.find('.medium-insert-active').removeClass('medium-insert-active');
+            this.$el.find('.medium-media-active').removeClass('medium-insert-active');
 
             $.each(this.options.addons, function (addon) {
-                if ($el.closest('.medium-insert-' + addon).length) {
+                if ($el.closest('.medium-media-' + addon).length) {
                     $current = $el;
                 }
 
-                if ($current.closest('.medium-insert-' + addon).length) {
-                    $p = $current.closest('.medium-insert-' + addon);
+                if ($current.closest('.medium-media-' + addon).length) {
+                    $p = $current.closest('.medium-media-' + addon);
                     activeAddon = addon;
                     return;
                 }
@@ -427,7 +427,7 @@
      */
 
     Core.prototype.showButtons = function (activeAddon) {
-        var $buttons = this.$el.find('.medium-insert-buttons');
+        var $buttons = this.$el.find('.medium-media-buttons');
 
         $buttons.show();
         $buttons.find('li').show();
@@ -448,9 +448,9 @@
     Core.prototype.hideButtons = function ($el) {
         $el = $el || this.$el;
 
-        $el.find('.medium-insert-buttons').hide();
-        $el.find('.medium-insert-buttons-addons').hide();
-        $el.find('.medium-insert-buttons-show').removeClass('medium-insert-buttons-rotate');
+        $el.find('.medium-media-buttons').hide();
+        $el.find('.medium-media-buttons-addons').hide();
+        $el.find('.medium-media-buttons-show').removeClass('medium-insert-buttons-rotate');
     };
 
     /**
@@ -461,14 +461,14 @@
      */
 
     Core.prototype.positionButtons = function (activeAddon) {
-        var $buttons = this.$el.find('.medium-insert-buttons'),
-            $p = this.$el.find('.medium-insert-active'),
+        var $buttons = this.$el.find('.medium-media-buttons'),
+            $p = this.$el.find('.medium-media-active'),
             $first = $p.find('figure:first').length ? $p.find('figure:first') : $p,
             left, top;
 
         if ($p.length) {
 
-            left = $p.position().left - parseInt($buttons.find('.medium-insert-buttons-addons').css('left'), 10) - parseInt($buttons.find('.medium-insert-buttons-addons a:first').css('margin-left'), 10);
+            left = $p.position().left - parseInt($buttons.find('.medium-media-buttons-addons').css('left'), 10) - parseInt($buttons.find('.medium-media-buttons-addons a:first').css('margin-left'), 10);
             left = left < 0 ? $p.position().left : left;
             top = $p.position().top + parseInt($p.css('margin-top'), 10);
 
@@ -494,8 +494,8 @@
      */
 
     Core.prototype.toggleAddons = function () {
-        this.$el.find('.medium-insert-buttons-addons').fadeToggle();
-        this.$el.find('.medium-insert-buttons-show').toggleClass('medium-insert-buttons-rotate');
+        this.$el.find('.medium-media-buttons-addons').fadeToggle();
+        this.$el.find('.medium-media-buttons-show').toggleClass('medium-insert-buttons-rotate');
     };
 
     /**
@@ -505,8 +505,8 @@
      */
 
     Core.prototype.hideAddons = function () {
-        this.$el.find('.medium-insert-buttons-addons').hide();
-        this.$el.find('.medium-insert-buttons-show').removeClass('medium-insert-buttons-rotate');
+        this.$el.find('.medium-media-buttons-addons').hide();
+        this.$el.find('.medium-media-buttons-show').removeClass('medium-insert-buttons-rotate');
     };
 
     /**

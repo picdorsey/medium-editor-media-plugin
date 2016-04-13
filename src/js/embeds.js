@@ -3,11 +3,11 @@
     'use strict';
 
     /** Default values */
-    var pluginName = 'mediumInsert',
+    var pluginName = 'mediumMedia',
         addonName = 'Embeds', // first char is uppercase
         defaults = {
             label: '<span class="fa fa-youtube-play"></span>',
-            placeholder: 'Paste a YouTube, Vimeo, Facebook, Twitter or Instagram link and press Enter',
+            placeholder: 'Paste a URL to your YouTube or Vimeo video and press enter...',
             oembedProxy: 'http://medium.iframe.ly/api/oembed?iframe=1',
             captions: true,
             captionPlaceholder: 'Type caption (optional)',
@@ -80,11 +80,11 @@
      */
 
     Embeds.prototype.init = function () {
-        var $embeds = this.$el.find('.medium-insert-embeds');
+        var $embeds = this.$el.find('.medium-media-embeds');
 
         $embeds.attr('contenteditable', false);
         $embeds.each(function () {
-            if ($(this).find('.medium-insert-embeds-overlay').length === 0) {
+            if ($(this).find('.medium-media-embeds-overlay').length === 0) {
                 $(this).append($('<div />').addClass('medium-insert-embeds-overlay'));
             }
         });
@@ -103,14 +103,14 @@
         $(document)
             .on('click', $.proxy(this, 'unselectEmbed'))
             .on('keydown', $.proxy(this, 'removeEmbed'))
-            .on('click', '.medium-insert-embeds-toolbar .medium-editor-action', $.proxy(this, 'toolbarAction'))
-            .on('click', '.medium-insert-embeds-toolbar2 .medium-editor-action', $.proxy(this, 'toolbar2Action'));
+            .on('click', '.medium-media-embeds-toolbar .medium-editor-action', $.proxy(this, 'toolbarAction'))
+            .on('click', '.medium-media-embeds-toolbar2 .medium-editor-action', $.proxy(this, 'toolbar2Action'));
 
         this.$el
             .on('keyup click paste', $.proxy(this, 'togglePlaceholder'))
             .on('keydown', $.proxy(this, 'processLink'))
-            .on('click', '.medium-insert-embeds-overlay', $.proxy(this, 'selectEmbed'))
-            .on('contextmenu', '.medium-insert-embeds-placeholder', $.proxy(this, 'fixRightClickOnPlaceholder'));
+            .on('click', '.medium-media-embeds-overlay', $.proxy(this, 'selectEmbed'))
+            .on('contextmenu', '.medium-media-embeds-placeholder', $.proxy(this, 'fixRightClickOnPlaceholder'));
 
         if (this.options.parseOnPaste) {
             this.$el
@@ -127,12 +127,12 @@
     Embeds.prototype.backwardsCompatibility = function () {
         var that = this;
 
-        this.$el.find('.mediumInsert-embeds')
-            .removeClass('mediumInsert-embeds')
-            .addClass('medium-insert-embeds');
+        this.$el.find('.mediumMedia-embeds')
+            .removeClass('mediumMedia-embeds')
+            .addClass('medium-media-embeds');
 
-        this.$el.find('.medium-insert-embeds').each(function () {
-            if ($(this).find('.medium-insert-embed').length === 0) {
+        this.$el.find('.medium-media-embeds').each(function () {
+            if ($(this).find('.medium-media-embed').length === 0) {
                 $(this).after(that.templates['src/js/templates/embeds-wrapper.hbs']({
                     html: $(this).html()
                 }));
@@ -153,8 +153,8 @@
         $.each(data, function (key) {
             var $data = $('<div />').html(data[key].value);
 
-            $data.find('.medium-insert-embeds').removeAttr('contenteditable');
-            $data.find('.medium-insert-embeds-overlay').remove();
+            $data.find('.medium-media-embeds').removeAttr('contenteditable');
+            $data.find('.medium-media-embeds-overlay').remove();
 
             data[key].value = $data.html();
         });
@@ -169,7 +169,7 @@
      */
 
     Embeds.prototype.add = function () {
-        var $place = this.$el.find('.medium-insert-active');
+        var $place = this.$el.find('.medium-media-active');
 
         // Fix #132
         // Make sure that the content of the paragraph is empty and <br> is wrapped in <p></p> to avoid Firefox problems
@@ -179,7 +179,7 @@
         // because medium editor wraps inserted content into paragraph and paragraphs can't be nested
         if ($place.is('p')) {
             $place.replaceWith('<div class="medium-insert-active">' + $place.html() + '</div>');
-            $place = this.$el.find('.medium-insert-active');
+            $place = this.$el.find('.medium-media-active');
             this.core.moveCaret($place);
         }
 
@@ -212,8 +212,8 @@
 
         if ($current.hasClass('medium-insert-embeds-active')) {
             $place = $current;
-        } else if ($current.closest('.medium-insert-embeds-active').length) {
-            $place = $current.closest('.medium-insert-embeds-active');
+        } else if ($current.closest('.medium-media-embeds-active').length) {
+            $place = $current.closest('.medium-media-embeds-active');
         }
 
         if ($place.hasClass('medium-insert-embeds-active')) {
@@ -231,7 +231,7 @@
             }
 
         } else {
-            this.$el.find('.medium-insert-embeds-active').remove();
+            this.$el.find('.medium-media-embeds-active').remove();
         }
     };
 
@@ -254,7 +254,7 @@
      */
 
     Embeds.prototype.processLink = function (e) {
-        var $place = this.$el.find('.medium-insert-embeds-active'),
+        var $place = this.$el.find('.medium-media-embeds-active'),
             url;
 
         if (!$place.length) {
@@ -290,7 +290,7 @@
 
     Embeds.prototype.processPasted = function (e) {
         var pastedUrl, linkRegEx;
-        if ($(".medium-insert-embeds-active").length) {
+        if ($(".medium-media-embeds-active").length) {
             return;
         }
 
@@ -406,7 +406,7 @@
      */
 
     Embeds.prototype.embed = function (html, pastedUrl) {
-        var $place = this.$el.find('.medium-insert-embeds-active'),
+        var $place = this.$el.find('.medium-media-embeds-active'),
             $div;
 
         if (!html) {
@@ -467,7 +467,7 @@
         var $place, $empty, $content,
             emptyTemplate = this.templates['src/js/templates/core-empty-line.hbs']().trim();
 
-        $place = this.$el.find('.medium-insert-embeds-active');
+        $place = this.$el.find('.medium-media-embeds-active');
 
         // convert embed node to an empty node and insert the bad embed inside
         $content = $(emptyTemplate);
@@ -495,7 +495,7 @@
         var that = this,
             $embed;
         if (this.core.options.enabled) {
-            $embed = $(e.target).hasClass('medium-insert-embeds') ? $(e.target) : $(e.target).closest('.medium-insert-embeds');
+            $embed = $(e.target).hasClass('medium-insert-embeds') ? $(e.target) : $(e.target).closest('.medium-media-embeds');
 
             $embed.addClass('medium-insert-embeds-selected');
 
@@ -517,15 +517,15 @@
      */
 
     Embeds.prototype.unselectEmbed = function (e) {
-        var $el = $(e.target).hasClass('medium-insert-embeds') ? $(e.target) : $(e.target).closest('.medium-insert-embeds'),
-            $embed = this.$el.find('.medium-insert-embeds-selected');
+        var $el = $(e.target).hasClass('medium-insert-embeds') ? $(e.target) : $(e.target).closest('.medium-media-embeds'),
+            $embed = this.$el.find('.medium-media-embeds-selected');
 
         if ($el.hasClass('medium-insert-embeds-selected')) {
             $embed.not($el).removeClass('medium-insert-embeds-selected');
-            $('.medium-insert-embeds-toolbar, .medium-insert-embeds-toolbar2').remove();
+            $('.medium-media-embeds-toolbar, .medium-media-embeds-toolbar2').remove();
             this.core.removeCaptions($el.find('figcaption'));
 
-            if ($(e.target).is('.medium-insert-caption-placeholder') || $(e.target).is('figcaption')) {
+            if ($(e.target).is('.medium-media-caption-placeholder') || $(e.target).is('figcaption')) {
                 $el.removeClass('medium-insert-embeds-selected');
                 this.core.removeCaptionPlaceholder($el.find('figure'));
             }
@@ -533,9 +533,9 @@
         }
 
         $embed.removeClass('medium-insert-embeds-selected');
-        $('.medium-insert-embeds-toolbar, .medium-insert-embeds-toolbar2').remove();
+        $('.medium-media-embeds-toolbar, .medium-media-embeds-toolbar2').remove();
 
-        if ($(e.target).is('.medium-insert-caption-placeholder')) {
+        if ($(e.target).is('.medium-media-caption-placeholder')) {
             this.core.removeCaptionPlaceholder($el.find('figure'));
         } else if ($(e.target).is('figcaption') === false) {
             this.core.removeCaptions();
@@ -553,12 +553,12 @@
         var $embed, $empty;
 
         if (e.which === 8 || e.which === 46) {
-            $embed = this.$el.find('.medium-insert-embeds-selected');
+            $embed = this.$el.find('.medium-media-embeds-selected');
 
             if ($embed.length) {
                 e.preventDefault();
 
-                $('.medium-insert-embeds-toolbar, .medium-insert-embeds-toolbar2').remove();
+                $('.medium-media-embeds-toolbar, .medium-media-embeds-toolbar2').remove();
 
                 $empty = $(this.templates['src/js/templates/core-empty-line.hbs']().trim());
                 $embed.before($empty);
@@ -580,7 +580,7 @@
      */
 
     Embeds.prototype.addToolbar = function () {
-        var $embed = this.$el.find('.medium-insert-embeds-selected'),
+        var $embed = this.$el.find('.medium-media-embeds-selected'),
             active = false,
             $toolbar, $toolbar2, top, mediumEditor, toolbarContainer;
 
@@ -596,8 +596,8 @@
             actions: this.options.actions
         }).trim());
 
-        $toolbar = $('.medium-insert-embeds-toolbar');
-        $toolbar2 = $('.medium-insert-embeds-toolbar2');
+        $toolbar = $('.medium-media-embeds-toolbar');
+        $toolbar2 = $('.medium-media-embeds-toolbar2');
 
         top = $embed.offset().top - $toolbar.height() - 8 - 2 - 5; // 8px - hight of an arrow under toolbar, 2px - height of an embed outset, 5px - distance from an embed
         if (top < 0) {
@@ -642,7 +642,7 @@
             $li = $button.closest('li'),
             $ul = $li.closest('ul'),
             $lis = $ul.find('li'),
-            $embed = this.$el.find('.medium-insert-embeds-selected'),
+            $embed = this.$el.find('.medium-media-embeds-selected'),
             that = this;
 
         $button.addClass('medium-editor-button-active');
@@ -681,7 +681,7 @@
             callback = this.options.actions[$button.data('action')].clicked;
 
         if (callback) {
-            callback(this.$el.find('.medium-insert-embeds-selected'));
+            callback(this.$el.find('.medium-media-embeds-selected'));
         }
 
         this.core.triggerInput();

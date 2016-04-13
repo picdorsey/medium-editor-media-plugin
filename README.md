@@ -1,4 +1,4 @@
-# jQuery insert plugin for MediumEditor
+# Media plugin for MediumEditor
 
 [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/orthes/medium-editor-insert-plugin?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 [![Build Status](https://travis-ci.org/orthes/medium-editor-insert-plugin.svg?branch=master)](https://travis-ci.org/orthes/medium-editor-insert-plugin)
@@ -7,32 +7,6 @@
 [![Codacy Badge](https://www.codacy.com/project/badge/1f8565ed2e554e4fa952ec4da6a2080b)](https://www.codacy.com/public/orthes/mediumeditorinsertplugin)
 
 This plugin expands capabilities of [MediumEditor](https://github.com/yabwe/medium-editor) (a clone of medium.com WYSIWYG editor) and it enables users to insert into the editor various types of content (depending on available addons).
-
-Current available addons:
-
-- **images**
-- **embeds** (either through oEmbed proxy, such as [Iframely](https://iframely.com/), or pre-defined parsers such as - Youtube, Vimeo, Twitter, Facebook, Instagram)
-
-
-## Demo
-
-[http://orthes.github.io/medium-editor-insert-plugin](http://orthes.github.io/medium-editor-insert-plugin)
-
-
-## Download
-
-**Via npm:**
-
-`npm install medium-editor-insert-plugin --save`
-
-**Via bower:**
-
-`bower install medium-editor-insert-plugin --save`
-
-**Manual:**
-
-[Download the latest release](https://github.com/orthes/medium-editor-insert-plugin/releases)
-
 
 ## Quick Start
 
@@ -87,8 +61,4 @@ $(function () {
 - [Author & Contributors](https://github.com/orthes/medium-editor-insert-plugin/wiki/Author-&-Contributors)
 
 
-## Sponsors
-
-[creator5](http://www.creator5.com) | [Maker](https://maker.me/) | [Nusii](http://nusii.com)
--------- | ----- | -----
-[![creator5](http://i.imgur.com/K9uiIuT.png)](http://www.creator5.com) | [![Maker](http://i.imgur.com/8t8wsM8.png)](http://maker.me) | [![nusii](http://i.imgur.com/tvdJ249.png)](http://nusii.com)
+### Forked by Piccirilli Dorsey, Inc.
